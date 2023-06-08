@@ -7,6 +7,11 @@ const githubReducer = (state, action)=>{
             ...state, 
             users: action.payload
          }
+      case 'CLEAR_USERS':
+         return{
+            ...state,
+            users: []
+         }
             
          
       default:

@@ -1,4 +1,5 @@
-import { createContext , useState } from "react";
+import { createContext , useReducer } from "react";
+import githubReducer from "./GithubReducer";
 
 
 const GithubContext = createContext();
@@ -8,7 +9,11 @@ const GITHUB_URL = import.meta.env.VITE_APP_GITHUB_URL
 
 export const GithubProvider = ({children})=>{
 
-   const [users, setUsers] = useState([]);
+   const initialState = {
+      users:[]
+   }
+
+   const [state, dispatch] = useReducer(githubReducer, initialState)
 
    const fetchUsers = async ()=>{
 
@@ -16,14 +21,46 @@ export const GithubProvider = ({children})=>{
 
       const data = await res.json()
 
-      setUsers(data);
+     dispatch({
+      type: 'GET_USERS',
+      payload: data
+
+     })
 
       console.log(data);
    }
 
+   const SearchUsers = async (text)=>{
+
+      const params = new URLSearchParams({
+         q: text
+      })
+
+      const res = await fetch(`${GITHUB_URL}/search/users?${params}`)
+
+      const {items} = await res.json()
+      console.log(items);
+
+     dispatch({
+      type: 'GET_USERS',
+      payload: items
+
+     })
+
+     
+   }
+
+   const clearUsers = ()=>{
+      dispatch({
+         type: 'CLEAR_USERS',
+         
+      })
+   }
+
   return <GithubContext.Provider value={{
-   users,
-   fetchUsers,
+   users : state.users,
+   SearchUsers,
+   clearUsers
   }}>
 
    {children}
