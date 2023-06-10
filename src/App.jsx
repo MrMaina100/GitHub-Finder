@@ -4,21 +4,26 @@ import About from "./pages/About"
 import NotFound from "./pages/NotFound"
 import Navbar from "./components/Layout/Navbar"
 import Footer from "./components/Layout/Footer"
+import Alert from "./components/Layout/Alert"
 import { GithubProvider } from "./Context/Github/GithubContext"
+import { AlertProvider } from "./Context/alert/AlertContext"
+
 
 
 function App() {
   return (
 
     <GithubProvider>
-    <Router>
-
+      <AlertProvider>  
+    
+     <Router>
       <div className="flex flex-col justify-between h-screen">
 
         <Navbar />
 
 
         <main className="container mx-auto px-3 pb-12">
+          <Alert/>
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/about" element={<About/>} />
@@ -34,6 +39,7 @@ function App() {
       
     </Router>
 
+    </AlertProvider>   
     </GithubProvider>
 
 
