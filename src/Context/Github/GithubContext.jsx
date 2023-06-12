@@ -10,25 +10,12 @@ const GITHUB_URL = import.meta.env.VITE_APP_GITHUB_URL
 export const GithubProvider = ({children})=>{
 
    const initialState = {
-      users:[]
+      users:[],
+      user:{}
    }
 
    const [state, dispatch] = useReducer(githubReducer, initialState)
 
-   const fetchUsers = async ()=>{
-
-      const res = await fetch(`${GITHUB_URL}/users`)
-
-      const data = await res.json()
-
-     dispatch({
-      type: 'GET_USERS',
-      payload: data
-
-     })
-
-      console.log(data);
-   }
 
    const SearchUsers = async (text)=>{
 
@@ -57,10 +44,43 @@ export const GithubProvider = ({children})=>{
       })
    }
 
+
+   //get a singular user 
+
+   const GetUser = async (username)=>{     
+
+      const res = await fetch(`${GITHUB_URL}/users/${username}`)
+
+
+      if(!res.ok){
+         window.location ='/NotFound'
+      }else{
+
+         const data = await res.json()
+      
+
+     dispatch({
+      type: 'GET_USER',
+      payload: data
+
+     })
+
+      }
+
+           
+   }
+
+ 
+
+
+
+
   return <GithubContext.Provider value={{
    users : state.users,
+   user: state.user,
    SearchUsers,
-   clearUsers
+   clearUsers,
+   GetUser
   }}>
 
    {children}
