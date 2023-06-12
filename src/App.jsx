@@ -7,6 +7,7 @@ import Footer from "./components/Layout/Footer"
 import Alert from "./components/Layout/Alert"
 import { GithubProvider } from "./Context/Github/GithubContext"
 import { AlertProvider } from "./Context/alert/AlertContext"
+import User from "./pages/User"
 
 
 
@@ -26,7 +27,8 @@ function App() {
           <Alert/>
           <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path="/about" element={<About/>} />
+            <Route path="/about" element={<About/>} />            
+            <Route path="/user" element={<User/>} />            
             <Route path="/notfound" element={<NotFound/>} />
             <Route path="/*" element={<NotFound/>} />
           </Routes>
