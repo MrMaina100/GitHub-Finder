@@ -11,7 +11,8 @@ export const GithubProvider = ({children})=>{
 
    const initialState = {
       users:[],
-      user:{}
+      user:{},
+      repos:{}
    }
 
    const [state, dispatch] = useReducer(githubReducer, initialState)
@@ -70,6 +71,24 @@ export const GithubProvider = ({children})=>{
            
    }
 
+   
+   const GetUserRepo = async (username)=>{     
+
+      const res = await fetch(`${GITHUB_URL}/users/${username}/repos`) 
+
+      const data = await res.json()    
+
+     dispatch({
+      type: 'GET_USER_REPO',
+      payload: data
+
+     })
+
+      
+
+           
+   }
+
  
 
 
@@ -80,7 +99,9 @@ export const GithubProvider = ({children})=>{
    user: state.user,
    SearchUsers,
    clearUsers,
-   GetUser
+   GetUser,
+   GetUserRepo,
+   repos:state.repos
   }}>
 
    {children}

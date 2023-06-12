@@ -18,6 +18,13 @@ const githubReducer = (state, action)=>{
             ...state,
             user:action.payload
          }
+
+      case 'GET_USER_REPO':
+         return{
+            ...state,
+            user:action.payload
+
+         }
             
          
       default:
