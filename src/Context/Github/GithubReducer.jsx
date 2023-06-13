@@ -19,10 +19,10 @@ const githubReducer = (state, action)=>{
             user:action.payload
          }
 
-      case 'GET_USER_REPO':
+      case 'GET_REPOS':
          return{
             ...state,
-            user:action.payload
+            repos:action.payload
 
          }
             
