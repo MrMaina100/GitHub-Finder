@@ -56,6 +56,7 @@ export const GithubProvider = ({children})=>{
 
       if(!res.ok){
          window.location ='/NotFound'
+      
       }else{
 
          const data = await res.json()
